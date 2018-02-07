@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: minio-client
+spec:  # specification of the pod's contents
+  restartPolicy: Never
+  containers:
+  - name: mc
+    image: "minio/mc"
+    command: ["/bin/sh","-c", "tail -f /dev/null"]
