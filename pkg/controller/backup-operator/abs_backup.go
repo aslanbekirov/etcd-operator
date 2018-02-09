@@ -26,8 +26,12 @@ import (
 	"k8s.io/client-go/kubernetes"
 )
 
+type ABS_Backup struct{
+
+}
+
 // handleABS saves etcd cluster's backup to specificed ABS path.
-func handleABS(kubecli kubernetes.Interface, s *api.ABSBackupSource, endpoints []string, clientTLSSecret, namespace string) (*api.BackupStatus, error) {
+func (abs *ABS_Backup) takeBackup(kubecli kubernetes.Interface, s *api.ABSBackupSource, endpoints []string, clientTLSSecret, namespace string) (*api.BackupStatus, error) {
 	cli, err := absfactory.NewClientFromSecret(kubecli, namespace, s.ABSSecret)
 	if err != nil {
 		return nil, err
