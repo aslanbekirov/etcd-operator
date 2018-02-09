@@ -26,9 +26,12 @@ import (
 	"k8s.io/client-go/kubernetes"
 )
 
-// TODO: replace this with generic backend interface for other options (PV, Azure)
+type S3_Backup struct{
+
+}
+
 // handleS3 saves etcd cluster's backup to specificed S3 path.
-func handleS3(kubecli kubernetes.Interface, s *api.S3BackupSource, endpoints []string, clientTLSSecret, namespace string) (*api.BackupStatus, error) {
+func (s3 *S3_Backup) takeBackup(kubecli kubernetes.Interface, s *api.S3BackupSource, endpoints []string, clientTLSSecret, namespace string) (*api.BackupStatus, error) {
 	cli, err := s3factory.NewClientFromSecret(kubecli, namespace, s.Endpoint, s.AWSSecret)
 	if err != nil {
 		return nil, err

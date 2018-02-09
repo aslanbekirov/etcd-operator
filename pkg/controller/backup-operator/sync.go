@@ -114,13 +114,15 @@ func (b *Backup) handleErr(err error, key interface{}) {
 func (b *Backup) handleBackup(spec *api.BackupSpec) (*api.BackupStatus, error) {
 	switch spec.StorageType {
 	case api.BackupStorageTypeS3:
-		bs, err := handleS3(b.kubecli, spec.S3, spec.EtcdEndpoints, spec.ClientTLSSecret, b.namespace)
+		bh:= S3_Backup{}
+		bs, err := bh.takeBackup(b.kubecli, spec.S3, spec.EtcdEndpoints, spec.ClientTLSSecret, b.namespace)
 		if err != nil {
 			return nil, err
 		}
 		return bs, nil
 	case api.BackupStorageTypeABS:
-		bs, err := handleABS(b.kubecli, spec.ABS, spec.EtcdEndpoints, spec.ClientTLSSecret, b.namespace)
+		bh:= ABS_Backup{}
+		bs, err := bh.takeBackup(b.kubecli, spec.ABS, spec.EtcdEndpoints, spec.ClientTLSSecret, b.namespace)
 		if err != nil {
 			return nil, err
 		}
